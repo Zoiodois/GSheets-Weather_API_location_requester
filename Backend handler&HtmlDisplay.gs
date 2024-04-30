@@ -1,7 +1,7 @@
 //This funtions display the HTML template from file whenever endpoit is acessed
 function doGet(e) {
   //Whenever the endpoint is requested, doGet() generates a HTML OUTPUT using IFRAME
-  var htmlTemplate = HtmlService.createTemplateFromFile('Inputs Template'); 
+  var htmlTemplate = HtmlService.createTemplateFromFile('Frontend HTML display'); 
   //htmlTemplate.data = {}
   var html = htmlTemplate.evaluate().setSandboxMode(HtmlService.SandboxMode.IFRAME);
   return  html
@@ -12,9 +12,10 @@ function getIssueFromHtml(data) {
   Logger.log(data);
 
   var searchStringValue = data.searchString;
+  var apiKey = returnAPIkey();
  
   // Endpoint of API GitHub for Issues sent by user
-  //var url = "https://api.github.com/repos/" + repoOwner + "/" + repo + "/issues/" + issueNumber;
+  var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + searchStringValue + '&appid=' + apiKey;
 
   //Request Options
   var options = {
@@ -40,7 +41,7 @@ function getIssueFromHtml(data) {
     Logger.log("Ops, something went wrong, status code:" + statusCode);
   }
 
-  return jsonresponse.body
+  return jsonresponse
 
 
 
