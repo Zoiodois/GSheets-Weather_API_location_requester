@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+  <title>Contact Form</title>
+  <style>
+    form {
+      width: 300px;
+      border: 1px solid #eee;
+      padding: 25px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    span {
+      margin: 10px 0 0;
+      display: inline-block;
+      font-family: cursive;
+    }
+
+    input[type=submit] {
+      height: 40px;
+      background-color: green;
+      color: white;
+    }
+
+    .output {
+      font-size: 1.5em;
+      font-family: fantasy;
+      height : 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <form name="IssueRequest"> <span>Search for weather conditions:</span>
+    <input type="text" id="local"name="local" value="">
+    <br><span>Enter the city name:</span>
+    <input type="text" id="repo" name="repo" value="">
+   
+   
+    <input type="submit" id="Requestbutton" value="Request Issue" />
+  </form>
+  <div class="output" id = "response" ></div>
+
+
+  <script>
+    var eventRequest = document.getElementById('Requestbutton')
+  .addEventListener('click', sendRequest);
+  function sendRequest(e) {
+    e.preventDefault();
+    console.log("click event");
+
+    var searchString = document.getElementById('local');
+    var searchStringValue = searchString.value;;
+   
+          
+    var values = {
+      "searchString" :searchStringValue 
+    }
+
+    console.log(values)
+    google.script.run.withSuccessHandler(showResponse).getIssueFromHtml(values);   
+  }
+
+  function showResponse(response){
+    console.log(response);
+    var rerponsediv =  document.getElementById('response');
+    rerponsediv.innerHTML = response;
+  }
+
+
+ 
+  </script>
+</body>
+
+</html>
